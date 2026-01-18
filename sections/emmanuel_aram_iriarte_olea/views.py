@@ -274,10 +274,10 @@ def app2(request):
                 // Quantum state representation: [amplitude_00, amplitude_01, amplitude_10, amplitude_11]
                 let currentState = [1, 0, 0, 0]; // |00⟩
                 
-                // Gate matrices (in computational basis)
+                // Gate matrices (in computational basis) - Note: PauliY uses imaginary numbers which are simplified in this visualization
                 const gates = {
                     'PauliX': [[0, 1], [1, 0]],  // X gate
-                    'PauliY': [[0, -1j], [1j, 0]],  // Y gate (approximation)
+                    'PauliY': [[0, -1], [1, 0]],  // Y gate (simplified - full version requires complex numbers)
                     'PauliZ': [[1, 0], [0, -1]],  // Z gate
                     'Hadamard': [[1/Math.SQRT2, 1/Math.SQRT2], [1/Math.SQRT2, -1/Math.SQRT2]]
                 };
