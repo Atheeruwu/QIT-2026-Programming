@@ -429,8 +429,8 @@ def app3(request):
             
             <div>
                 <h2>Calculate Fibonacci Number:</h2>
-                <label>Enter n (0-100 recommended):</label><br>
-                <input type="number" id="fibInput" value="10" min="0" max="100"><br>
+                <label>Enter n (0-45 recommended):</label><br>
+                <input type="number" id="fibInput" value="10" min="0" max="45"><br>
                 <button onclick="calculateFibonacci()">Calculate</button>
             </div>
             
@@ -480,8 +480,8 @@ def app3(request):
                 function calculateFibonacci() {
                     const n = parseInt(document.getElementById('fibInput').value);
                     
-                    if (n < 0 || n > 100) {
-                        alert('Please enter a number between 0 and 100');
+                    if (n < 0 || n > 45) {
+                        alert('Please enter a number between 0 and 45');
                         return;
                     }
                     
