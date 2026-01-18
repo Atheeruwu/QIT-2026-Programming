@@ -7,10 +7,10 @@ def index(request):
         <!DOCTYPE html>
         <html>
         <head>
-            <title>Emmanuel - QIT 2026 Programming</title>
+            <title>Emmanuel Aram Iriarte Olea - QIT 2026 Programming</title>
         </head>
         <body>
-            <h1>Emmanuel</h1>
+            <h1>Emmanuel Aram Iriarte Olea</h1>
             <ul>
                 <li><a href="app1/">Application 1: LeetCode Problem (Two Sum)</a></li>
                 <li><a href="app2/">Application 2: Basic Quantum Gates Simulator</a></li>

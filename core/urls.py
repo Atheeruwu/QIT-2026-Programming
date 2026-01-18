@@ -11,7 +11,7 @@ urlpatterns = [
     path('juan_pablo/', include('sections.juan_pablo.urls')),
     path('cesar/', include('sections.cesar.urls')),
     path('atheer/', include('sections.atheer.urls')),
-    path('emmanuel/', include('sections.emmanuel.urls')),
+    path('emmanuel_aram_iriarte_olea/', include('sections.emmanuel_aram_iriarte_olea.urls')),
     path('praneet/', include('sections.praneet.urls')),
     path('frankie/', include('sections.frankie.urls')),
 ]
