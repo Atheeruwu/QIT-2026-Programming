@@ -8,8 +8,13 @@ def index(request):
         <html>
         <head>
             <title>Emmanuel Aram Iriarte Olea - QIT 2026 Programming</title>
+            <style>
+                .back-button { padding: 8px 15px; background: #666; color: white; text-decoration: none; border-radius: 4px; display: inline-block; margin-bottom: 20px; }
+                .back-button:hover { background: #555; }
+            </style>
         </head>
         <body>
+            <a href="/" class="back-button">← Back to Global Index</a>
             <h1>Emmanuel Aram Iriarte Olea</h1>
             <ul>
                 <li><a href="app1/">Application 1: LeetCode Problem (Two Sum)</a></li>
@@ -30,6 +35,8 @@ def app1(request):
             <title>Two Sum - LeetCode Problem</title>
             <style>
                 body { font-family: Arial, sans-serif; max-width: 800px; margin: 50px auto; padding: 20px; }
+                .back-button { padding: 8px 15px; background: #666; color: white; text-decoration: none; border-radius: 4px; display: inline-block; margin-bottom: 20px; }
+                .back-button:hover { background: #555; }
                 .problem { background: #f5f5f5; padding: 15px; border-radius: 5px; margin: 20px 0; }
                 .example { background: #e8f4f8; padding: 10px; margin: 10px 0; border-left: 4px solid #2196F3; }
                 code { background: #f0f0f0; padding: 2px 6px; border-radius: 3px; }
@@ -41,6 +48,7 @@ def app1(request):
             </style>
         </head>
         <body>
+            <a href="../" class="back-button">← Back to Index</a>
             <h1>LeetCode Problem: Two Sum</h1>
             
             <div class="problem">
@@ -121,6 +129,8 @@ def app2(request):
             <title>Basic Quantum Gates Simulator</title>
             <style>
                 body { font-family: Arial, sans-serif; max-width: 900px; margin: 50px auto; padding: 20px; }
+                .back-button { padding: 8px 15px; background: #666; color: white; text-decoration: none; border-radius: 4px; display: inline-block; margin-bottom: 20px; }
+                .back-button:hover { background: #555; }
                 .gate-info { background: #f5f5f5; padding: 15px; border-radius: 5px; margin: 20px 0; }
                 .gate-button { padding: 10px 15px; margin: 5px; background: #2196F3; color: white; border: none; border-radius: 4px; cursor: pointer; }
                 .gate-button:hover { background: #1976D2; }
@@ -132,6 +142,7 @@ def app2(request):
             </style>
         </head>
         <body>
+            <a href="../" class="back-button">← Back to Index</a>
             <h1>Basic Quantum Gates Simulator</h1>
             
             <div class="gate-info">
@@ -254,6 +265,8 @@ def app3(request):
             <title>Dynamic Programming Example</title>
             <style>
                 body { font-family: Arial, sans-serif; max-width: 800px; margin: 50px auto; padding: 20px; }
+                .back-button { padding: 8px 15px; background: #666; color: white; text-decoration: none; border-radius: 4px; display: inline-block; margin-bottom: 20px; }
+                .back-button:hover { background: #555; }
                 .info { background: #f5f5f5; padding: 15px; border-radius: 5px; margin: 20px 0; }
                 .comparison { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin: 20px 0; }
                 .method { padding: 15px; border: 2px solid #ddd; border-radius: 5px; }
@@ -267,6 +280,7 @@ def app3(request):
             </style>
         </head>
         <body>
+            <a href="../" class="back-button">← Back to Index</a>
             <h1>Dynamic Programming Example: Fibonacci Sequence</h1>
             
             <div class="info">
@@ -362,44 +376,62 @@ def app3(request):
                     const resultTab = fibTabulation(n);
                     const timeTab = (performance.now() - startTab).toFixed(4);
                     
-                    // Try naive approach for small n only
-                    let resultNaive = 'N/A (too slow)';
+                    // Try naive approach with 10 second timeout
+                    let resultNaive = 'N/A (timeout or too slow)';
                     let timeNaive = 'N/A';
-                    if (n <= 30) {
+                    
+                    // Use Promise with timeout for naive recursive
+                    const naivePromise = new Promise((resolve) => {
                         const startNaive = performance.now();
-                        resultNaive = fibNaive(n);
-                        timeNaive = (performance.now() - startNaive).toFixed(4);
-                    }
+                        try {
+                            const result = fibNaive(n);
+                            const elapsed = performance.now() - startNaive;
+                            resolve({ result, elapsed });
+                        } catch (e) {
+                            resolve({ result: null, elapsed: null });
+                        }
+                    });
                     
-                    const display = `
-                        <p><strong>F(${n}) = ${resultDP}</strong></p>
-                        <table border="1" style="border-collapse: collapse; width: 100%;">
-                            <tr>
-                                <th>Method</th>
-                                <th>Result</th>
-                                <th>Time (ms)</th>
-                            </tr>
-                            <tr>
-                                <td>Dynamic Programming (Memoization)</td>
-                                <td>${resultDP}</td>
-                                <td>${timeDP}</td>
-                            </tr>
-                            <tr>
-                                <td>Tabulation (Bottom-up)</td>
-                                <td>${resultTab}</td>
-                                <td>${timeTab}</td>
-                            </tr>
-                            <tr>
-                                <td>Naive Recursive</td>
-                                <td>${resultNaive}</td>
-                                <td>${timeNaive}</td>
-                            </tr>
-                        </table>
-                        <p><small>Note: Naive recursive approach is only calculated for n ≤ 30 due to exponential time complexity.</small></p>
-                    `;
-                    
-                    document.getElementById('resultsDisplay').innerHTML = display;
-                    document.getElementById('result').style.display = 'block';
+                    // Wait up to 10 seconds (10000ms)
+                    Promise.race([
+                        naivePromise,
+                        new Promise(resolve => setTimeout(() => resolve({ result: null, elapsed: null }), 10000))
+                    ]).then(({ result, elapsed }) => {
+                        if (result !== null && elapsed !== null) {
+                            resultNaive = result;
+                            timeNaive = elapsed.toFixed(4);
+                        }
+                        
+                        const display = `
+                            <p><strong>F(${n}) = ${resultDP}</strong></p>
+                            <table border="1" style="border-collapse: collapse; width: 100%;">
+                                <tr>
+                                    <th>Method</th>
+                                    <th>Result</th>
+                                    <th>Time (ms)</th>
+                                </tr>
+                                <tr>
+                                    <td>Dynamic Programming (Memoization)</td>
+                                    <td>${resultDP}</td>
+                                    <td>${timeDP}</td>
+                                </tr>
+                                <tr>
+                                    <td>Tabulation (Bottom-up)</td>
+                                    <td>${resultTab}</td>
+                                    <td>${timeTab}</td>
+                                </tr>
+                                <tr>
+                                    <td>Naive Recursive (10s timeout)</td>
+                                    <td>${resultNaive}</td>
+                                    <td>${timeNaive}</td>
+                                </tr>
+                            </table>
+                            <p><small>Note: Naive recursive approach has a 10-second timeout limit.</small></p>
+                        `;
+                        
+                        document.getElementById('resultsDisplay').innerHTML = display;
+                        document.getElementById('result').style.display = 'block';
+                    });
                 }
                 
                 // Calculate on load
