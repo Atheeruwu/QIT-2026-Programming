@@ -334,8 +334,14 @@ def app2(request):
                 }
                 
                 function updateDisplay() {
+                    const stateDisplayEl = document.getElementById('stateDisplay');
+                    if (!stateDisplayEl) {
+                        console.error('stateDisplay element not found');
+                        return;
+                    }
+                    
                     const states = ['|00⟩', '|01⟩', '|10⟩', '|11⟩'];
-                    let display = '<table><tr><th>State</th><th>Amplitude</th><th>Probability</th></tr>';
+                    let display = '<table border="1" style="border-collapse: collapse; width: 100%;"><tr><th>State</th><th>Amplitude</th><th>Probability</th></tr>';
                     
                     for (let i = 0; i < 4; i++) {
                         const amp = currentState[i];
@@ -345,16 +351,25 @@ def app2(request):
                     }
                     display += '</table>';
                     
-                    document.getElementById('stateDisplay').innerHTML = display;
-                    document.getElementById('result').style.display = 'block';
+                    stateDisplayEl.innerHTML = display;
+                    const resultEl = document.getElementById('result');
+                    if (resultEl) {
+                        resultEl.style.display = 'block';
+                    }
                 }
                 
-                // Initialize display on page load
-                if (document.readyState === 'loading') {
-                    document.addEventListener('DOMContentLoaded', updateDisplay);
+                // Initialize display when page loads - use multiple methods to ensure it works
+                window.addEventListener('load', function() {
+                    setTimeout(updateDisplay, 100);
+                });
+                
+                // Also try immediately if DOM is ready
+                if (document.readyState === 'complete' || document.readyState === 'interactive') {
+                    setTimeout(updateDisplay, 100);
                 } else {
-                    // DOM already loaded, call immediately
-                    updateDisplay();
+                    document.addEventListener('DOMContentLoaded', function() {
+                        setTimeout(updateDisplay, 100);
+                    });
                 }
             </script>
         </body>
