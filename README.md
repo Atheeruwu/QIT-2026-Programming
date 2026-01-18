@@ -26,7 +26,7 @@ repo/
 │   ├── emmanuel/
 │   │   ├── views.py
 │   │   └── urls.py
-│   ├── praneet/
+│   ├── prabhneet/
 │   │   ├── views.py
 │   │   └── urls.py
 │   └── frankie/
