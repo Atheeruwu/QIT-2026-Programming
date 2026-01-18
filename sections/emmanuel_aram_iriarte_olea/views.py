@@ -349,10 +349,17 @@ def app2(request):
                     document.getElementById('result').style.display = 'block';
                 }
                 
-                // Initialize on page load
-                window.onload = function() {
-                    resetState();
-                };
+                // Initialize display immediately when page loads
+                document.addEventListener('DOMContentLoaded', function() {
+                    updateDisplay();
+                });
+                
+                // Also ensure it runs if DOM is already loaded
+                if (document.readyState === 'loading') {
+                    document.addEventListener('DOMContentLoaded', updateDisplay);
+                } else {
+                    updateDisplay();
+                }
             </script>
         </body>
         </html>
