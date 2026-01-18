@@ -17,7 +17,7 @@ def index(request):
             <a href="/" class="back-button">← Back to Global Index</a>
             <h1>Emmanuel Aram Iriarte Olea</h1>
             <ul>
-                <li><a href="app1/">Application 1: LeetCode Problem (Two Sum)</a></li>
+                <li><a href="app1/">Application 1: LeetCode Problem (Longest Palindromic Substring)</a></li>
                 <li><a href="app2/">Application 2: Basic Quantum Gates Simulator</a></li>
                 <li><a href="app3/">Application 3: Dynamic Programming Example</a></li>
             </ul>
@@ -293,7 +293,7 @@ def app2(request):
                         currentState[3] = newState[2]; // |11⟩ -> |10⟩
                     } else if (gateName === 'Hadamard') {
                         // Apply Hadamard to first qubit (simplified)
-                        const h = 1/Math.SQRT2;
+                        const h = 1 / Math.SQRT2;
                         const newState = [
                             h * (currentState[0] + currentState[2]),
                             h * (currentState[1] + currentState[3]),
@@ -303,10 +303,18 @@ def app2(request):
                         currentState = newState;
                     } else if (gateName === 'PauliX') {
                         // X gate flips |0⟩ and |1⟩ on first qubit
+                        // |00⟩ <-> |10⟩, |01⟩ <-> |11⟩
                         const newState = [currentState[2], currentState[3], currentState[0], currentState[1]];
+                        currentState = newState;
+                    } else if (gateName === 'PauliY') {
+                        // Y gate: X followed by Z (with imaginary component handled as sign changes)
+                        // For visualization, we apply -iXZ which gives: |0⟩ -> i|1⟩, |1⟩ -> -i|0⟩
+                        // Simplified to: swap and negate appropriately
+                        const newState = [-currentState[3], -currentState[2], currentState[1], currentState[0]];
                         currentState = newState;
                     } else if (gateName === 'PauliZ') {
                         // Z gate applies phase flip to |1⟩ on first qubit
+                        // |0⟩ unchanged, |1⟩ -> -|1⟩
                         currentState[2] = -currentState[2];
                         currentState[3] = -currentState[3];
                     }
@@ -319,7 +327,7 @@ def app2(request):
                     
                     for (let i = 0; i < 4; i++) {
                         const amp = currentState[i];
-                        const prob = (amp * amp).toFixed(3);
+                        const prob = Math.abs(amp * amp).toFixed(3);
                         const ampStr = amp.toFixed(3);
                         display += `<tr><td>${states[i]}</td><td>${ampStr}</td><td>${prob}</td></tr>`;
                     }
@@ -329,8 +337,10 @@ def app2(request):
                     document.getElementById('result').style.display = 'block';
                 }
                 
-                // Initialize
-                resetState();
+                // Initialize on page load
+                window.onload = function() {
+                    resetState();
+                };
             </script>
         </body>
         </html>
