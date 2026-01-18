@@ -231,12 +231,12 @@ def app2(request):
                 <h2>How to Use the Quantum Gates Simulator</h2>
                 <ol>
                     <li><strong>Select Initial State:</strong> Choose a starting quantum state from the dropdown (|00⟩, |01⟩, |10⟩, |11⟩, or |+⟩)</li>
-                    <li><strong>Click Reset:</strong> Initialize the simulator with your selected state</li>
-                    <li><strong>Apply Gates:</strong> Click on any quantum gate button to transform the current state</li>
-                    <li><strong>View Results:</strong> The table below shows the current quantum state with amplitudes and probabilities</li>
+                    <li><strong>Click Reset State:</strong> This sets the starting point - initially only your selected state will have amplitude 1.0, others will be 0.0</li>
+                    <li><strong>Apply Gates:</strong> Click on any quantum gate button to transform the current state - gates can create superpositions (multiple states with non-zero amplitudes)</li>
+                    <li><strong>View Results:</strong> The table below shows all possible two-qubit states. After applying gates, you may see multiple states with non-zero probabilities.</li>
                 </ol>
-                <p><strong>Note:</strong> All gates operate on the first qubit (except CNOT which operates on both qubits). 
-                The state is displayed as [|00⟩, |01⟩, |10⟩, |11⟩] where each value is the amplitude of that basis state.</p>
+                <p><strong>Key Point:</strong> The table always shows all 4 possible states (|00⟩, |01⟩, |10⟩, |11⟩). Initially, only your selected state has probability 1.0. After applying gates, quantum superpositions can create multiple states with non-zero amplitudes.</p>
+                <p><strong>Gates:</strong> Single-qubit gates operate on the first qubit. CNOT operates on both qubits (flips target if control is |1⟩).</p>
             </div>
             
             <div class="gate-info">
