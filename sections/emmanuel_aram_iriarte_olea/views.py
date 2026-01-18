@@ -83,6 +83,47 @@ def app1(request):
                 Explanation: The entire string is a palindrome.
             </div>
             
+            <div class="problem">
+                <h2>Algorithm Explanation: Expand Around Centers</h2>
+                <p><strong>Approach:</strong> Instead of checking every possible substring, we use a more efficient "Expand Around Centers" technique.</p>
+                
+                <h3>Key Insight:</h3>
+                <p>Every palindrome has a center. We can expand from each center position to find the longest palindrome.</p>
+                
+                <h3>Two Types of Centers:</h3>
+                <ol>
+                    <li><strong>Odd-length palindromes:</strong> Center is at a single character (e.g., "aba" has center at 'b')</li>
+                    <li><strong>Even-length palindromes:</strong> Center is between two characters (e.g., "abba" has center between 'b' and 'b')</li>
+                </ol>
+                
+                <h3>Algorithm Steps:</h3>
+                <ol>
+                    <li>For each position <code>i</code> in the string:</li>
+                    <ul>
+                        <li>Check for odd-length palindrome: expand from center <code>(i, i)</code></li>
+                        <li>Check for even-length palindrome: expand from center <code>(i, i+1)</code></li>
+                    </ul>
+                    <li>Expand outward while characters match: <code>s[left] === s[right]</code></li>
+                    <li>Keep track of the longest palindrome found</li>
+                </ol>
+                
+                <h3>Time Complexity:</h3>
+                <p><strong>O(n²)</strong> - For each of n positions, we potentially expand up to n/2 characters in each direction.</p>
+                
+                <h3>Space Complexity:</h3>
+                <p><strong>O(1)</strong> - Only using a few variables, no additional data structures.</p>
+                
+                <h3>Example Walkthrough (s = "babad"):</h3>
+                <ul>
+                    <li><code>i=0</code>: 'b' → expand: len=1 (best so far)</li>
+                    <li><code>i=1</code>: 'a' → odd: "bab" (len=3), even: "ba" (len=0) → max=3 ✓</li>
+                    <li><code>i=2</code>: 'b' → odd: "aba" (len=3), even: "ba" (len=0) → max=3</li>
+                    <li><code>i=3</code>: 'a' → odd: "a" (len=1), even: "ad" (len=0)</li>
+                    <li><code>i=4</code>: 'd' → odd: "d" (len=1), even: N/A</li>
+                </ul>
+                <p><strong>Result:</strong> "bab" or "aba" (both length 3)</p>
+            </div>
+            
             <h2>Try it yourself:</h2>
             <div>
                 <label>Input string:</label><br>
