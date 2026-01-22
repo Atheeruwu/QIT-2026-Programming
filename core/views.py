@@ -6,7 +6,7 @@ STUDENTS = [
     {'name': 'Cesar', 'path': 'cesar'},
     {'name': 'Atheer', 'path': 'atheer'},
     {'name': 'Emmanuel Aram Iriarte Olea', 'path': 'emmanuel_aram_iriarte_olea'},
-    {'name': 'Praneet', 'path': 'praneet'},
+    {'name': 'Prabhneet', 'path': 'prabhneet'},
     {'name': 'Frankie', 'path': 'frankie'},
 ]
 
