@@ -1,4 +1,9 @@
-from django.urls import path
+from django.contrib import admin
+from django.urls import path, include
 
-# TODO: Student will implement their views here
-urlpatterns = []
+urlpatterns = [
+    path('admin/', admin.site.urls),
+    path('', include('pages.urls')),     # Homepage
+    path('app1/', include('app1.urls')), # app1 routes
+    path('app2/', include('app2.urls')), # app2 routes
+]
