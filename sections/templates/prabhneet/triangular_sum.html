@@ -1,3 +1,5 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -272,7 +274,7 @@
             <div class="examples">
                 <h4>Example 1:</h4>
                 <div class="diagram">
-                    <img src="../../static/app1/images/triangular_sum_diagram.png" alt="Triangular Sum Process Diagram">
+                    <img src="{% static 'prabhneet/app1/images/triangular_sum_diagram.png' %}">
                 </div>
                 <pre>Input: nums = [1,2,3,4,5]
 Output: 8
